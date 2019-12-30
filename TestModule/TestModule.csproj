@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arguments.cs" />
     <Compile Include="Sleep.cs" />
     <Compile Include="Help.cs" />
     <Compile Include="Meta.cs" />

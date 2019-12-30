@@ -19,6 +19,7 @@ namespace CmdTest
             AEvents.OutputInfo += Info;
             AEvents.OutputError += Error;
             AEvents.OutputDebug += Debug;
+            AEvents.OutputWarning += Warning;
             AEvents.OnCommandSleep += OnSleep;
             AEvents.OnCommandEnded += OnEnded;
             AEvents.CommandBeforeStart += Before;
@@ -33,6 +34,10 @@ namespace CmdTest
         static void Info(string msg)
         {
             Console.WriteLine($"INFO: {msg}");
+        }
+        static void Warning(string msg)
+        {
+            Console.WriteLine($"WARN: {msg}");
         }
         static void Error(string error)
         {
