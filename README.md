@@ -1,6 +1,6 @@
 # AwwareCmds
 .NET Framework library to help implement command line with your commands
-# How it use?
+# Mini-Manual
 <b>With modules</b>
 ```cs
 var executer = new Executer(GC_BOOL);
