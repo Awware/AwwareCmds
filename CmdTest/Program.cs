@@ -12,14 +12,16 @@ namespace CmdTest
         public static Executer exec;
         static void Main(string[] args)
         {
-            exec = new Executer(true, "Modules");
-            exec.AttachModulesFromFolder();
+            exec = new Executer(true);
+            exec.AttachModulesFromFolder("Modules");
             Out(exec.MODController.Modules.Count.ToString(), "");
+            AEvents.ClearPlace += new Action(() => Console.Clear());
             AEvents.OutputInfo += Info;
             AEvents.OutputError += Error;
             AEvents.OutputDebug += Debug;
             AEvents.OnCommandSleep += OnSleep;
             AEvents.OnCommandEnded += OnEnded;
+            AEvents.CommandBeforeStart += Before;
             while (true) {
                 exec.CommandHandler(Console.ReadLine());
             }
@@ -47,6 +49,10 @@ namespace CmdTest
         static void OnEnded()
         {
             Console.WriteLine("Cmd ended.");
+        }
+        static void Before()
+        {
+            Console.WriteLine("Before command start.");
         }
     }
 }

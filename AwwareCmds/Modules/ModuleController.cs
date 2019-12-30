@@ -77,14 +77,15 @@ namespace AwwareCmds.Modules
         public void ReloadModules()
         {
             foreach (var mod in Modules)
-                mod.ModuleInfo.ModuleDeinitialize(EXEC);
-            Modules.Clear();
-            EXEC.CommandsHeap.Clear();
-            EXEC.AttachModulesFromFolder();
+                ReloadModule(mod);
         }
         public void ReloadModule(string mName)
         {
-            Module module = GetModuleByName(mName);
+            ReloadModule(GetModuleByName(mName));
+        }
+        public void ReloadModule(Module module)
+        {
+            module.ModuleInfo.ModuleDeinitialize(EXEC);
             DetachModule(module);
             EXEC.AttachModule(File.ReadAllBytes(module.ModuleAssembly.Location));
         }
@@ -112,7 +113,7 @@ namespace AwwareCmds.Modules
             {
                 if (strAssmbName.FullName.Substring(0, strAssmbName.FullName.IndexOf(",")) == args.Name.Substring(0, args.Name.IndexOf(",")))
                 {
-                    strTempAssmbPath = $"{EXEC.ModulesFolder}\\{args.Name.Substring(0, args.Name.IndexOf(","))}.dll";
+                    strTempAssmbPath = $"{EXEC.LastModulesFolder}\\{args.Name.Substring(0, args.Name.IndexOf(","))}.dll";
                     break;
                 }
             }

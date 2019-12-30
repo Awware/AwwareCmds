@@ -11,29 +11,27 @@ namespace AwwareCmds
 {
     public class Executer
     {
-        public Executer(bool gc, string modulesFolder, int Timeout = 15000)
+        public Executer(bool gc, int Timeout = 15000)
         {
-            COMMANDTIMEOUT = Timeout;
-            ModulesFolder = modulesFolder;
             ArgsControl = new ArgsController();
             CommandsHeap = new List<ICMD>();
             MODController = new Modules.ModuleController(this);
+            COMMANDTIMEOUT = Timeout;
             GarbageCollect = gc;
         }
-        public Thread MainThread;
         public List<ICMD> CommandsHeap;
         public bool GarbageCollect = false;
+        public string LastModulesFolder = "";
         private System.Diagnostics.Stopwatch myStopwatch = null;
-
         public ArgsController ArgsControl;
         public Modules.ModuleController MODController;
-        public string ModulesFolder;
         public int COMMANDTIMEOUT { get; set; } = 15000;
         public void AttachModule(System.Reflection.Assembly asm) => MODController.AttachModule(MODController.GenerateModule(asm));
         public void AttachModule(byte[] rawAsm) => MODController.AttachModule(MODController.GenerateModule(Assembly.Load(rawAsm)));
-        public void AttachModulesFromFolder()
+        public void AttachModulesFromFolder(string folder)
         {
-            foreach (var asm in System.IO.Directory.GetFiles(ModulesFolder, "*.module"))
+            LastModulesFolder = folder;
+            foreach (var asm in System.IO.Directory.GetFiles(folder, "*.module"))
                 MODController.AttachModule(MODController.GenerateModule(Assembly.Load(File.ReadAllBytes(asm))));
         }
         public void CommandHandler(string cmd)

@@ -1,0 +1,14 @@
+
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
+*.cache
+*.pdb
+*.dll
+*.exe
+*.config
+*.module
+*.CopyComplete
+*.txt
+.vs/AwwareCmds/v16/.suo
