@@ -3,7 +3,7 @@
 # Mini-Manual
 <b>With modules</b>
 ```cs
-var executer = new Executer(GC_BOOL);
+var executer = new CommandService()
 executer.AttachModulesFromFolder("UR FOLDER");
 ```
 <b>If your commands are in this assembly</b>
