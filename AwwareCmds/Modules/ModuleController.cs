@@ -8,9 +8,9 @@ namespace AwwareCmds.Modules
 {
     public class ModuleController
     {
-        private readonly Executer EXEC;
+        private readonly CommandService EXEC;
         public List<Module> Modules;
-        public ModuleController(Executer exec)
+        public ModuleController(CommandService exec)
         {
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(ASM_RESOLVE);
             EXEC = exec;
@@ -31,7 +31,7 @@ namespace AwwareCmds.Modules
         private void InitializeModuleCommands(Module mod)
         {
             foreach (var cmd in mod.ModuleCmds)
-                cmd.C_Init(EXEC);
+                cmd.CommandInitialization();
         }
         public void DetachModule(Module mod)
         {

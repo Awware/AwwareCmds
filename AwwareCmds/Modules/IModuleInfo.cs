@@ -6,7 +6,7 @@
         string ModuleName { get; }
         string Version { get; }
         string Author { get; }
-        void ModuleInitialize(Executer exec);
-        void ModuleDeinitialize(Executer exec);
+        void ModuleInitialize(CommandService exec);
+        void ModuleDeinitialize(CommandService exec);
     }
 }

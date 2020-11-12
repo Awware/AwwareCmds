@@ -5,17 +5,17 @@ namespace AwwareCmds
 {
     public static class Loader
     {
-        public static List<ICMD> LoadCommands(System.Reflection.Assembly asm)
+        public static List<AbstractCommand> LoadCommands(System.Reflection.Assembly asm)
         {
-            List<ICMD> Cmds = new List<ICMD>();
+            List<AbstractCommand> Cmds = new List<AbstractCommand>();
             foreach (var type in asm.GetTypes())
-                if (typeof(ICMD).IsAssignableFrom(type) && type != typeof(ICMD))
-                    Cmds.Add(Activator.CreateInstance(type) as ICMD);
+                if (typeof(AbstractCommand).IsAssignableFrom(type) && type != typeof(AbstractCommand))
+                    Cmds.Add(Activator.CreateInstance(type) as AbstractCommand);
             Validation(Cmds);
             return Cmds;
         }
         //Refactor it
-        private static void Validation(List<ICMD> cmds)
+        private static void Validation(List<AbstractCommand> cmds)
         {
             foreach (var cmd in cmds)
             {
@@ -24,9 +24,9 @@ namespace AwwareCmds
                     if (cmd == cmd2)
                         continue;
                     if (cmd.Name == cmd2.Name)
-                        throw new Exception($"Identical command names! {cmd.Name} - {cmd2.Name} | {cmd.Cmd}");
-                    else if (cmd.Cmd == cmd2.Cmd)
-                        throw new Exception($"Identical commands! {cmd.Cmd} - {cmd2.Cmd} | {cmd.Name}");
+                        throw new Exception($"Identical command names! {cmd.Name} - {cmd2.Name} | {cmd.InputCommand}");
+                    else if (cmd.InputCommand == cmd2.InputCommand)
+                        throw new Exception($"Identical commands! {cmd.InputCommand} - {cmd2.InputCommand} | {cmd.Name}");
                 }
             }
         }

@@ -5,7 +5,7 @@ namespace AwwareCmds.Modules
 {
     public class Module
     {
-        public Module(IModuleInfo modInfo, System.Reflection.Assembly asm, List<ICMD> cmds)
+        public Module(IModuleInfo modInfo, System.Reflection.Assembly asm, List<AbstractCommand> cmds)
         {
             ModuleInfo = modInfo;
             ModuleAssembly = asm;
@@ -14,11 +14,8 @@ namespace AwwareCmds.Modules
 
         public IModuleInfo ModuleInfo { get; set; }
         public Assembly ModuleAssembly { get; set; }
-        public List<ICMD> ModuleCmds { get; set; }
+        public List<AbstractCommand> ModuleCmds { get; set; }
         public bool Disabled { get; set; } = false;
-        public void DisableEnableModule()
-        {
-            Disabled = !Disabled;
-        }
+        public void DisableEnableModule() => Disabled = !Disabled;
     }
 }

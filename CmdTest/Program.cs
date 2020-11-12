@@ -1,63 +1,77 @@
 ﻿using AwwareCmds;
+using AwwareCmds.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CmdTest
 {
     class Program
     {
-        public static Executer exec;
-        static void Main(string[] args)
+        class ConsoleInteractor : Interactor
         {
-            exec = new Executer(true);
-            exec.AttachModulesFromFolder("Modules");
-            Out(exec.MODController.Modules.Count.ToString(), "");
-            AEvents.ClearPlace += new Action(() => Console.Clear());
-            AEvents.OutputInfo += Info;
-            AEvents.OutputError += Error;
-            AEvents.OutputDebug += Debug;
-            AEvents.OutputWarning += Warning;
-            AEvents.OnCommandSleep += OnSleep;
-            AEvents.OnCommandEnded += OnEnded;
-            AEvents.CommandBeforeStart += Before;
-            while (true) {
-                exec.CommandHandler(Console.ReadLine());
+            public static bool Ended { get; set; } = true;
+            public void After(CommandResult result)
+            {
+                Ended = true;
+                Console.WriteLine("AFTER!");
+            }
+
+            public void Before()
+            {
+                Ended = false;
+                Console.WriteLine("BEFORE");
+            }
+
+            public void Clear()
+            {
+
+            }
+
+            public void Debug(string msg)
+            {
+                Console.WriteLine($"DEBUG: {msg}");
+            }
+
+            public void Error(string msg)
+            {
+                Console.WriteLine($"ERROR: {msg}");
+            }
+
+            public void Info(string msg)
+            {
+                Console.WriteLine($"INFO: {msg}");
+            }
+
+            public void Sleep(CancellationTokenSource cancelation)
+            {
+                Console.WriteLine("SLEEP!");
+                //cancelation.Cancel();
+            }
+
+            public void Success(string msg)
+            {
+                Console.WriteLine($"SUCCESS: {msg}");
+            }
+
+            public void Warning(string msg)
+            {
+                Console.WriteLine($"WARNING: {msg}");
             }
         }
-        static void Out(string msg, params object[] args)
+        public static CommandService exec;
+        static void Main(string[] args)
         {
-            Console.WriteLine($"OUT: {msg}");
-        }
-        static void Info(string msg)
-        {
-            Console.WriteLine($"INFO: {msg}");
-        }
-        static void Warning(string msg)
-        {
-            Console.WriteLine($"WARN: {msg}");
-        }
-        static void Error(string error)
-        {
-            Console.WriteLine($"ERROR: {error}");
-        }
-        static void Debug(string error)
-        {
-            Console.WriteLine($"DEBUG: {error}");
-        }
-        static void OnSleep(Task task)
-        {
-            Console.WriteLine("SLEEEPP!!!!");
-        }
-        static void OnEnded()
-        {
-            Console.WriteLine("Cmd ended.");
-        }
-        static void Before()
-        {
-            Console.WriteLine("Before command start.");
+            exec = new CommandService(new ConsoleInteractor());
+            exec.AttachModulesFromFolder("Modules");
+            while (true) {
+                if (!ConsoleInteractor.Ended)
+                    continue;
+                exec.CommandHandler(Console.ReadLine());
+            }
         }
     }
 }

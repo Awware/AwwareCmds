@@ -18,14 +18,14 @@ namespace TestModule
 
         public string Author => "Awware";
 
-        public void ModuleDeinitialize(Executer exec)
+        public void ModuleDeinitialize(CommandService exec)
         {
 
         }
 
-        public void ModuleInitialize(Executer exec)
+        public void ModuleInitialize(CommandService exec)
         {
-            AEvents.OutputAction("Test Module Inited!", AEvents.OutTypes.Info);
+            CommandService.Interactor.Debug("module initialize!");
         }
     }
 }

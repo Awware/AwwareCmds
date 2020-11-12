@@ -65,24 +65,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments\ArgsController.cs" />
-    <Compile Include="Arguments\ArgsTemplate.cs" />
-    <Compile Include="Arguments\NumberArgs.cs" />
-    <Compile Include="Arguments\StringArgs.cs" />
-    <Compile Include="Arguments\Subcommands.cs" />
     <Compile Include="CmdsUtils\CommandSnippets.cs" />
-    <Compile Include="Executer.cs" />
-    <Compile Include="Types\ICMD.cs" />
+    <Compile Include="CommandAnalyser\RawCommand.cs" />
+    <Compile Include="CommandService.cs" />
+    <Compile Include="Types\AbstractCommand.cs" />
     <Compile Include="Loader.cs" />
-    <Compile Include="AEvents.cs" />
     <Compile Include="Modules\Module.cs" />
     <Compile Include="Modules\IModuleInfo.cs" />
     <Compile Include="Modules\ModuleController.cs" />
     <Compile Include="Modules\ModuleKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CmdsUtils\Saver.cs" />
-    <Compile Include="Types\SubInfo.cs" />
     <Compile Include="CmdsUtils\Utils.cs" />
+    <Compile Include="Types\CommandResult.cs" />
+    <Compile Include="Types\Interactor.cs" />
+    <Compile Include="Types\NullInteractor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
